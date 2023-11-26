@@ -1,4 +1,19 @@
 package com.example.gestionstock.repository;
 
-public interface MouvementRepository extends org.springframework.data.jpa.repository.JpaRepository<com.example.gestionstock.model.Mouvement, java.lang.Long> {
+import com.example.gestionstock.model.*;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+import java.time.LocalDateTime;
+import java.util.List;
+
+public interface MouvementRepository extends JpaRepository<Mouvement, Long> {
+    @Query("select m from Mouvement m where m.entree = ?1 and m.sortie.dateSortie <= ?2")
+    List<Mouvement> findByEntreeAndSortie_DateSortieBefore(Entree entree, LocalDateTime dateSortie);
+
+
+
+
+
+
 }

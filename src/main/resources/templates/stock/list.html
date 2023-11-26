@@ -1,10 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+
+<head th:replace="~{fragments/head :: head(title='Liste des métiers')}"></head>
+
+<body class="layout-boxed">
+
+<div class="page">
+    <header th:replace="~{fragments/navbar}"></header>
+    <header th:replace="~{fragments/menu}"></header>
+
+    <div class="page-wrapper">
+        <!-- Page header -->
+        <div th:replace="~{fragments/page_header :: pageHeader(pageTitle='Etat de stock')}"></div>
+
+        <!-- Page body -->
+        <div class="page-body">
+            <div class="container-xl">
+                <!-- Content here -->
+                <<div class="row">
+                    <div class="col-12">
+                        <div class="card">
+
+                            <div class="card-body" >
+                                <table id="table" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>date</th>
+                                        <th>Produit</th>
+                                        <th>type</th>
+                                        <th>unite</th>
+                                        <th>valeur</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="historique: ${historiques}">
+                                        <td th:text="${historique.getDate()}"></td>
+                                        <td th:text="${historique.getProduit().getDesignation()}"></td>
+                                        <td th:text="${historique.getType()}"></td>
+                                        <td th:text="${historique.getUnite().getDesignation()}"></td>
+                                        <td th:text="${historique.getStock()}"></td>
+                                    </tr>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>date</th>
+                                        <th>Produit</th>
+                                        <th>type</th>
+                                        <th>unite</th>
+                                        <th>valeur</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Page footer -->
+        <footer th:replace="~{fragments/footer}"></footer>
+    </div>
+</div>
+
+<script th:replace="~{fragments/script}"></script>
 </body>
+
 </html>

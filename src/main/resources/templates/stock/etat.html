@@ -1,10 +1,116 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+
+<head th:replace="~{fragments/head :: head(title='Liste des métiers')}"></head>
+
+<body class="layout-boxed">
+
+<div class="page">
+    <header th:replace="~{fragments/navbar}"></header>
+    <header th:replace="~{fragments/menu}"></header>
+
+    <div class="page-wrapper">
+        <!-- Page header -->
+        <div th:replace="~{fragments/page_header :: pageHeader(pageTitle='Etat de stock')}"></div>
+
+        <!-- Page body -->
+        <div class="page-body">
+            <div class="container-xl">
+                <!-- Content here -->
+                <div class="row">
+                    <form class="card"  th:action="@{/etat_stock}" method="post">
+                        <div class="card-body">
+                            <div class="col-sm-6 col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Date 1 </label>
+                                    <input type="datetime-local" class="form-control" name="date1"
+                                           required />
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Date 2 </label>
+                                    <input type="datetime-local" class="form-control" name="date2"
+                                           required />
+                                </div>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Magasin</label>
+                                    <input type="text" class="form-control" name="magasin"
+                                           required />
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6 col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Produit</label>
+                                    <input type="text" class="form-control" name="produit"
+                                           required />
+                                </div>
+                            </div>
+
+                            <div class="card-footer d-flex justify-content-end">
+                                <button type="submit" class="btn btn-success">
+                                    Enregistrer
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+
+                            <div class="card-body" th:if="${etatStock!=null}">
+                                <table id="table" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Magasin</th>
+                                        <th>Produit</th>
+                                        <th>Quantite debut</th>
+                                        <th>Reste</th>
+                                        <th>Prix</th>
+                                        <th>Montant</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="stock: ${etatStock.getStocks()}">
+                                            <td th:text="${stock.getMagasin().getNom()}"></td>
+                                            <td th:text="${stock.getProduit().getDesignation()}"></td>
+                                            <td th:text="${stock.getQuantite_initial()}"></td>
+                                            <td th:text="${stock.getReste()}"></td>
+                                            <td th:text="${stock.getPrix()}"></td>
+                                            <td th:text="${stock.getMontant()}"></td>
+                                        </tr>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>Magasin</th>
+                                        <th>Produit</th>
+                                        <th>Quantite debut</th>
+                                        <th>Reste</th>
+                                        <th>Prix</th>
+                                        <th>Montant</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                                <h1>TOTAL: <span th:text="${etatStock.getTotal()}"></span></h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Page footer -->
+        <footer th:replace="~{fragments/footer}"></footer>
+    </div>
+</div>
+
+<script th:replace="~{fragments/script}"></script>
 </body>
+
 </html>

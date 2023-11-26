@@ -1,10 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
+<html xmlns:th="http://www.thymeleaf.org" lang="fr">
+
+<head th:replace="~{fragments/head :: head(title='Liste des métiers')}"></head>
+
+<body class="layout-boxed">
+
+<div class="page">
+    <header th:replace="~{fragments/navbar}"></header>
+    <header th:replace="~{fragments/menu}"></header>
+
+    <div class="page-wrapper">
+        <!-- Page header -->
+        <div th:replace="~{fragments/page_header :: pageHeader(pageTitle='Etat de stock')}"></div>
+
+        <!-- Page body -->
+        <div class="page-body">
+            <div class="container-xl">
+                <!-- Content here -->
+                <div class="row">
+                    <form class="card"  th:action="@{/etat_stock}" method="post">
+
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+
+                            <div class="card-body"
+                            >
+                                <table id="table" class="table table-bordered table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>date</th>
+                                        <th>Magasin</th>
+                                        <th>Produit</th>
+                                        <th>Quantite</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="sortie: ${sortieList}">
+                                        <td th:text="${sortie.getDateSortie()}"></td>
+                                        <td th:text="${sortie.getMagasin().getNom()}"></td>
+                                        <td th:text="${sortie.getProduit().getDesignation()}"></td>
+                                        <td th:text="${sortie.getQuantite()}"></td>
+                                        <td>
+                                            <a th:href="@{/valider/{id} (id=${sortie.getId()})}" class="btn btn-warning">
+                                                valider
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                    <tfoot>
+                                    <tr>
+                                        <th>date</th>
+                                        <th>Magasin</th>
+                                        <th>Produit</th>
+                                        <th>Quantite</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                    </tfoot>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Page footer -->
+        <footer th:replace="~{fragments/footer}"></footer>
+    </div>
+</div>
+
+<script th:replace="~{fragments/script}"></script>
 </body>
+
 </html>

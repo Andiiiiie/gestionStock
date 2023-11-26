@@ -4,11 +4,9 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
-@Setter
 @Entity
-@Table(name = "sortie")
-public class Sortie {
+@Table(name = "mouvement")
+public class Mouvement {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
@@ -22,7 +20,42 @@ public class Sortie {
     private Double quantite;
 
     @ManyToOne
-    @JoinColumn(name = "sortie_mere_id")
-    private SortieMere sortieMere;
+    @JoinColumn(name = "sortie_id")
+    private Sortie sortie;
 
+
+
+
+    //getter and setter
+    public Long getId() {
+        return id;
+    }
+
+    public Entree getEntree() {
+        return entree;
+    }
+
+    public Double getQuantite() {
+        return quantite;
+    }
+
+    public Sortie getSortie() {
+        return sortie;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setEntree(Entree entree) {
+        this.entree = entree;
+    }
+
+    public void setQuantite(Double quantite) {
+        this.quantite = quantite;
+    }
+
+    public void setSortie(Sortie sortie) {
+        this.sortie = sortie;
+    }
 }
